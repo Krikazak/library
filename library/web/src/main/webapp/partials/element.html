@@ -1,0 +1,6 @@
+<button ng-show="lock" ng-click="lock=false">Lock</button>
+<button ng-hide="lock" ng-click="lock=true">Edit</button>
+<button ng-click="save(elementModel.foundContent.data)">Save</button>
+<metawidget id="metawidget" ng-model="elementModel.foundContent.data"
+	read-only="!lock">
+</metawidget>
