@@ -1,0 +1,8 @@
+<label>Search by isbn :</label>
+<input type="text" ng-model="contentModel.isbn" placeholder="isbn" />
+<button type="submit" ng-click="search()">Search</button>
+<p>Found {{contentModel.foundContents.length}} result(s)</p>
+<ul>
+	<li ng-repeat="foundContent in contentModel.foundContents"><span>{{foundContent.searchEngine}} / {{foundContent.data.volumeInfo.title}}</span>
+	<button ng-click="open(foundContent)">+</button></li>
+</ul>

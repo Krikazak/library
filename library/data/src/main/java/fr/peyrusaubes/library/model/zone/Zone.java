@@ -8,14 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import fr.peyrusaubes.library.data.common.PersistenceContants;
 import fr.peyrusaubes.library.model.common.PersistentEntity;
 
 @Entity
 @Table(name = "ZONE")
+@NamedQueries({
+	@NamedQuery(name=PersistenceContants.QUERY_NAME_ZONE_FIND_BY_PARENT, 
+			query="SELECT z FROM Zone z WHERE (:parentId is null AND z.container.id is null) OR (z.container.id = :parentId)")
+})
 public class Zone extends PersistentEntity<Long> {
 
 	/**

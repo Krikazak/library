@@ -43,7 +43,45 @@ libraryModels.factory('ContentModel', function(ContentServices, $rootScope, $sce
 	return new ContentModelFactory ();
 });
 
-libraryModels.factory('ElementModel', function() {
+libraryModels.factory('ZoneModel', function(ZoneServices) {
+	function ZoneModelFactory () {
+		/////////////////////
+		//	PRIVATE VAR
+		/////////////////////
+		
+		var self = this;
+		
+		/////////////////////
+		//	PUBLIC VAR
+		/////////////////////
+		
+		this.zones = null;
+		this.loading = false;
+		
+		/////////////////////
+		//	PRIVATE METHODS
+		/////////////////////
+		
+		/////////////////////
+		//	PUBLIC METHODS
+		/////////////////////	
+		
+		this.findAll = function () {
+			this.loading = true;
+			self.zones = [];
+			ZoneServices.findAll().success (function (res) {
+				self.zones = res;
+				self.loading = false;
+			}).error (function () {
+				self.loading = false;
+			});
+		};
+	}
+	
+	return new ZoneModelFactory ();
+});
+
+libraryModels.factory('ElementModel', function(ElementServices) {
 	function ElementModelFactory () {
 		/////////////////////
 		//	PRIVATE VAR
@@ -56,6 +94,7 @@ libraryModels.factory('ElementModel', function() {
 		/////////////////////
 		
 		this.foundElement = null;
+		this.elements = null;
 		
 		/////////////////////
 		//	PRIVATE METHODS
@@ -64,6 +103,17 @@ libraryModels.factory('ElementModel', function() {
 		/////////////////////
 		//	PUBLIC METHODS
 		/////////////////////	
+
+		this.find = function (query) {
+			this.loading = true;
+			self.elements = [];
+			ElementServices.find(query).success (function (res) {
+				self.zones = res;
+				self.loading = false;
+			}).error (function () {
+				self.loading = false;
+			});
+		};
 	}
 	
 	return new ElementModelFactory ();

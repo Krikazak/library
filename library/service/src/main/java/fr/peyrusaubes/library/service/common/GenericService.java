@@ -87,7 +87,8 @@ public interface GenericService<T extends PersistentEntity<K>, K> {
 	 * Search entities using the query
 	 * @param query
 	 * @return List of entities
+	 * @param include Entity attributes to complete
 	 * @throws LibraryTechnicalException exception
 	 */
-	List<T> search(String query) throws LibraryTechnicalException;
+	List<T> search(String query, String include) throws LibraryTechnicalException;
 }

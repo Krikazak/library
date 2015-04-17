@@ -27,13 +27,11 @@ public class ElementController extends ParentController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public List<Element> findAll(@RequestParam(required=false) String include) {
-		return elementService.findAll(include);
-	}
-
-	@RequestMapping(value = "/search/", method = RequestMethod.GET)
-	public List<Element> search(@RequestParam(value="q") String query) throws LibraryTechnicalException {
-		return elementService.search(query);
+	public List<Element> search(@RequestParam(value="q", required=false) String query, @RequestParam(defaultValue="") String include) throws LibraryTechnicalException {
+		if (query == null) {
+			return elementService.findAll(include);
+		}
+		return elementService.search(query, include);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)

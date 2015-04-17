@@ -62,5 +62,28 @@ libraryServices.service('ElementServices', function(LibraryServices) {
             data:element
 		}, "ERROR_CODE_CREATE_ELEMENT");
 	};
+	this.find = function (query) {
+		return LibraryServices.call ({
+			url:"json/element/",
+			method:"GET",
+            params: {
+            	q:query,
+            	include:""
+            }
+		}, "ERROR_CODE_CREATE_ELEMENT");
+	};
+	
+});
+
+libraryServices.service('ZoneServices', function(LibraryServices) {
+	this.findAll = function () {
+		return LibraryServices.call ({
+			url:"json/zone/tree",
+			method:"GET",
+            params: {
+            	include:"contained.contained"
+            }
+		}, "ERROR_CODE_ZONE_FINDALL");
+	};
 	
 });

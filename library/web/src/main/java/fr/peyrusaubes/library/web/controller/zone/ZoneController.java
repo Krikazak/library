@@ -50,4 +50,9 @@ public class ZoneController extends ParentController {
 	public void delete(@PathVariable Long id) throws LibraryTechnicalException {
 		zoneService.delete(id);
 	}
+
+	@RequestMapping(value = "/tree", method = RequestMethod.GET)
+	public List<Zone> findByParent(@RequestParam(required=false) Long parentId, @RequestParam(required=false) String include) {
+		return zoneService.findByParent(parentId, include);
+	}
 }

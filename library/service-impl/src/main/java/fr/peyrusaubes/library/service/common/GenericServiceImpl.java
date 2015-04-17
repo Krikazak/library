@@ -73,10 +73,10 @@ public abstract class GenericServiceImpl<T extends PersistentEntity<K>, K> imple
 		return new ClonerBase<T, K>().include(include).copy(getManager().findByIds(ids));
 	}
 
-	public List<T> search(String query) throws LibraryTechnicalException {
+	public List<T> search(String query, String include) throws LibraryTechnicalException {
 		if (getSearchManager() == null) {
 			throw new LibraryTechnicalException(ExceptionCodes.TECH_NO_SEARCH_MANAGER, ExceptionCodes.TECH_NO_SEARCH_MANAGER_MSG, getManager().getEntityBeanType().getName());
 		}
-		return getSearchManager().search(query);
+		return new ClonerBase<T, K>().include(include).copy(getSearchManager().search(query));
 	}
 }

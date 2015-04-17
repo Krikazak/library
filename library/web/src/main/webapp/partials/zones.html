@@ -1,0 +1,17 @@
+<ol>
+	<li ng-repeat="zone in zoneModel.zones">
+		<span>{{zone.name}}</span>
+		<ol>
+			<li ng-repeat="child in zone.contained">
+				{{child.name}}
+				<ol>
+					<li ng-repeat="grandChild in child.contained">
+						{{grandChild.name}}
+					</li>
+				</ol>
+			</li>
+		</ol>
+	</li>
+</ol>
+
+<button ng-click="add()">+</button>e
