@@ -88,13 +88,13 @@ libraryModels.factory('ElementModel', function(ElementServices) {
 		/////////////////////
 		
 		var self = this;
+		this.loading = false;
 		
 		/////////////////////
 		//	PUBLIC VAR
 		/////////////////////
 		
-		this.foundElement = null;
-		this.elements = null;
+		this.zones = null;
 		
 		/////////////////////
 		//	PRIVATE METHODS
@@ -106,7 +106,7 @@ libraryModels.factory('ElementModel', function(ElementServices) {
 
 		this.find = function (query) {
 			this.loading = true;
-			self.elements = [];
+			self.zones = [];
 			ElementServices.find(query).success (function (res) {
 				self.zones = res;
 				self.loading = false;
@@ -117,4 +117,60 @@ libraryModels.factory('ElementModel', function(ElementServices) {
 	}
 	
 	return new ElementModelFactory ();
+});
+
+libraryModels.factory('MenuModel', function(ZoneServices) {
+	function MenuModelFactory () {
+		/////////////////////
+		//	PRIVATE VAR
+		/////////////////////
+		
+		var self = this;
+		
+		/////////////////////
+		//	PUBLIC VAR
+		/////////////////////
+		
+		this.zones = null;
+		
+		/////////////////////
+		//	PRIVATE METHODS
+		/////////////////////
+		
+		/////////////////////
+		//	PUBLIC METHODS
+		/////////////////////	
+		
+
+		this.findZones = function () {
+			this.loading = true;
+			self.elements = [];
+			ZoneServices.findByParent().success (function (res) {
+				self.zones = res;
+				self.loading = false;
+			}).error (function () {
+				self.loading = false;
+			});
+		};
+		
+		this.load = function (zone) {
+			ZoneServices.load(zone).success (function (res) {
+				var offset = 20;
+				if (zone.offset != undefined && zone.offset != null) {
+					offset = zone.offset + 20;
+				} else {
+					zone.offset = 0;
+				}
+				zone.contained = res.contained;
+				for (var i = 0; i < zone.contained.length; i++) {
+					zone.contained[i].offset = offset;
+				}
+				zone.loaded = true;
+			}).error (function () {
+				zone.loaded = false;
+			});
+		};
+	}
+	
+	return new MenuModelFactory ();
 });

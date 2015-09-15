@@ -57,3 +57,38 @@ libraryControllers.controller("ElementPopinController", function(ElementModel, E
 		ElementServices.create(data);
      };
 });
+
+
+libraryControllers.controller('ToolBarController', function($scope, $mdSidenav, $mdUtil, $log) {
+	$scope.toggle = buildToggler('left');
+
+	function buildToggler(navID) {
+		var debounceFn =  $mdUtil.debounce(function(){
+			$mdSidenav(navID)
+				.toggle()
+				.then(function () {
+					$log.debug("toggle " + navID + " is done");
+			});
+		},300);
+
+		return debounceFn;
+	};
+});
+
+
+libraryControllers.controller('MenuController', function(MenuModel, $scope) {
+
+	$scope.menuModel = MenuModel;
+	
+	$scope.load = function(zone) {
+		if (! zone.loaded) {
+			MenuModel.load(zone);
+		}
+	};
+	
+	function init() {
+		MenuModel.findZones();
+	};
+	
+	init();
+});

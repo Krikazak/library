@@ -85,5 +85,27 @@ libraryServices.service('ZoneServices', function(LibraryServices) {
             }
 		}, "ERROR_CODE_ZONE_FINDALL");
 	};
+
+	this.findByParent = function (parentId) {
+		return LibraryServices.call ({
+			url:"json/zone/tree",
+			method:"GET",
+            params: {
+            	parentId:parentId,
+            	include:""
+            }
+		}, "ERROR_CODE_ZONE_FINDBYPARENT");
+	};
+
+	this.load = function (zone) {
+		return LibraryServices.call ({
+			url:"json/zone/" + zone.id,
+			method:"GET",
+            params: {
+            	include:"contained"
+            }
+		}, "ERROR_CODE_ZONE_FINDBYPARENT");
+	};
+	
 	
 });

@@ -90,12 +90,24 @@
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		
-		<!-- Angular js -->
+		<!-- "/var/run/vmblock-fuse/blockdir/522d2ad9-cf74-473a-6661-ad1956446b50/css
+"Angular js -->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>angularjs</artifactId>
 		</dependency>
-		
+			
+			<!-- Materialize -->
+			<dependency>
+			    <groupId>org.webjars</groupId>
+			    <artifactId>angular-material</artifactId>
+			</dependency>
+			
+			<!-- Angular UI-router -->
+			<dependency>
+			    <groupId>org.webjars</groupId>
+			    <artifactId>angular-ui-router</artifactId>
+			</dependency>
 	</dependencies>
 
 	<build>
